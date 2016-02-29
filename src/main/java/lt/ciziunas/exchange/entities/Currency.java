@@ -1,6 +1,6 @@
 package lt.ciziunas.exchange.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Currency DB representation. Currency items are equal when name and date fields are equal
@@ -9,30 +9,24 @@ public class Currency {
 
     private String name;
     private float value;
-    private Date date;
+    private LocalDate date;
+
+    public Currency(String name, float value, LocalDate date) {
+        this.name = name;
+        this.value = value;
+        this.date = date;
+    }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public float getValue() {
         return value;
     }
 
-    public void setValue(float value) {
-        this.value = value;
-    }
-
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     @Override

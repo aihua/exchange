@@ -2,12 +2,11 @@ package lt.ciziunas.exchange.db;
 
 import lt.ciziunas.exchange.entities.Currency;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Database representation
@@ -18,7 +17,8 @@ public class Database {
 
     private Set<Currency> currencySet = new HashSet<>();
 
-    private Database() {}
+    private Database() {
+    }
 
     public static Database getInstance() {
         return instance;
@@ -29,9 +29,6 @@ public class Database {
     }
 
     public boolean add(Currency currency) {
-        Stream<Integer> stream = Stream.of( new Integer[]{1,2,3,4,5,6,7,8,9} );
-        stream.
-
         return this.currencySet.add(currency);
     }
 
@@ -40,7 +37,16 @@ public class Database {
     }
 
     public Set<Currency> findHistory(String name) {
-        return this.currencySet.stream().filter(p -> name.equals(p.getName())).collect(Collectors.toSet());
+        return this.currencySet.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toSet());
+    }
+
+    public Currency find(String name, LocalDate date) {
+        Optional<Currency> result = this.currencySet.stream().filter(p -> p.getName().equals(name) && p.getDate().equals(date)).findFirst();
+        return result.isPresent() ? result.get() : null;
+    }
+
+    public Currency findPresent(String name) {
+        return find(name, LocalDate.now());
     }
 
 
