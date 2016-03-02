@@ -1,5 +1,7 @@
 package lt.ciziunas.exchange.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 
 /**
@@ -9,6 +11,7 @@ public class Currency {
 
     private String name;
     private float value;
+    @JsonIgnore
     private LocalDate date;
 
     public Currency(String name, float value, LocalDate date) {

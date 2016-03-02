@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="currencyExchengeApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency exchange app</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+
+</head>
+<body>
+<h1>Welcome to currency exchange app</h1>
+<div ng-controller="ExchangeController" data-ng-init="init()">
+    <form name="currenciesForm">
+        <label for="CurrencySelect"> Repeat select: </label>
+        <select name="CurrencySelect" id="CurrencySelect" ng-model="data.selected" ng-change="valueChanged()">
+            <option ng-repeat="option in currencies" value="{{option.name}}">{{option.name}}</option>
+        </select>
+    </form>
+
+<ul>
+    <li ng-repeat="record in historyList">{{record.name}} {{record.rate}}</li>
+
+</ul>
+</div>
+
+</body>
+</html>
