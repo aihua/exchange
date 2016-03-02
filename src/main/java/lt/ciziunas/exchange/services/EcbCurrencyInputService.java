@@ -8,7 +8,7 @@ import lt.ciziunas.exchange.network.EcbConnection;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mciziunas on 3/2/16.
@@ -23,7 +23,7 @@ public class EcbCurrencyInputService implements CurrencyInputService {
     }
 
     @Override
-    public List<Currency> getCurrencyList() {
+    public Set<Currency> getCurrencyList() {
         connection = new EcbConnection(url);
         try {
             JAXBContext jc = JAXBContext.newInstance(EcbEnvelope.class);

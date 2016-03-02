@@ -6,16 +6,16 @@ import lt.ciziunas.exchange.dto.EcbEnvelope;
 import lt.ciziunas.exchange.entities.Currency;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mciziunas on 3/2/16.
  */
 public class CurrencyConverter {
 
-    public List<Currency> convert(EcbEnvelope source) {
-        List<Currency> result = new ArrayList<>();
+    public Set<Currency> convert(EcbEnvelope source) {
+        Set<Currency> result = new HashSet<>();
 
         for(CurrencyDailyRecord record : source.getCurrencyRecordsWrapper().getCurrencyDailyRecordList()) {
             LocalDate date = record.getDate();
