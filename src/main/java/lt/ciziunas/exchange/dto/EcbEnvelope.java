@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EcbEnvelope {
 
-    @XmlElement(name = "Cube")
+    @XmlElement(name = "Cube", required = true)
     private CurrencyRecordsWrapper currencyRecordsWrapper;
 
     public CurrencyRecordsWrapper getCurrencyRecordsWrapper() {

@@ -52,7 +52,7 @@ import java.util.List;
 @XmlType(name = "", propOrder = { "currencyDailyRecordList" })
 public class CurrencyRecordsWrapper {
 
-    @XmlElement(name = "Cube")
+    @XmlElement(name = "Cube", required = true)
     protected List<CurrencyDailyRecord> currencyDailyRecordList;
 
     /**

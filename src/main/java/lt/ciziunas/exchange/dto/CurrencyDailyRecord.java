@@ -48,10 +48,8 @@ public class CurrencyDailyRecord {
     @XmlElement(name = "Cube")
     protected List<CurrencyItem> currencyItems;
     @XmlAttribute(name = "time")
-//    @XmlSchemaType(name = "date")
-//    @XmlElement(name = "time", required = true)
     @XmlJavaTypeAdapter(XmlDateTypeAdapter.class)
-    protected LocalDate time;
+    protected LocalDate date;
 
     /**
      * Gets the value of the cube property.
@@ -75,7 +73,7 @@ public class CurrencyDailyRecord {
      *
      *
      */
-    public List<CurrencyItem> getCurrencyItem() {
+    public List<CurrencyItem> getCurrencyItems() {
         if (currencyItems == null) {
             currencyItems = new ArrayList<CurrencyItem>();
         }
@@ -90,8 +88,8 @@ public class CurrencyDailyRecord {
      *     {@link XMLGregorianCalendar }
      *
      */
-    public LocalDate getTime() {
-        return time;
+    public LocalDate getDate() {
+        return date;
     }
 
     /**
@@ -102,8 +100,8 @@ public class CurrencyDailyRecord {
      *     {@link XMLGregorianCalendar }
      *
      */
-    public void setTime(LocalDate value) {
-        this.time = value;
+    public void setDate(LocalDate value) {
+        this.date = value;
     }
 
 }
