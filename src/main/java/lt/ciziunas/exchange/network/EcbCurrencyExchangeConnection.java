@@ -13,7 +13,7 @@ import java.security.InvalidParameterException;
 /**
  * Created by mciziunas on 3/2/16.
  */
-public class EcbConnection {
+public class EcbCurrencyExchangeConnection implements Connection {
 
     private static final String ECB_SERVICE_TIMEOUT = "ecb.service.timeout";
     private static final String ECB_SERVICE_MAX_RETRY_COUNT = "ecb.service.maxretry.count";
@@ -27,7 +27,7 @@ public class EcbConnection {
     @Autowired
     private Environment env;
 
-    public EcbConnection(String uri) {
+    public EcbCurrencyExchangeConnection(String uri) {
         populateUrl(uri);
 //        populateProperties();
     }

@@ -1,30 +1,28 @@
-package lt.ciziunas.exchange.services;
+package lt.ciziunas.exchange.network;
 
-import lt.ciziunas.exchange.CurrencyConverter;
+import lt.ciziunas.exchange.converters.CurrencyConverter;
 import lt.ciziunas.exchange.dto.EcbEnvelope;
 import lt.ciziunas.exchange.entities.Currency;
-import lt.ciziunas.exchange.network.EcbConnection;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mciziunas on 3/2/16.
  */
-public class EcbCurrencyInputService implements CurrencyInputService {
+public class EcbCurrencyExchangeHttpClient implements CurrencyExchangeClient {
 
-    private EcbConnection connection;
-    private String url;
+    private Connection connection;
 
-    public EcbCurrencyInputService(String url) {
-        this.url = url;
+    public EcbCurrencyExchangeHttpClient(Connection ecbCurrencyConnection) {
+        this.connection = ecbCurrencyConnection;
     }
 
     @Override
-    public Set<Currency> getCurrencyList() {
-        connection = new EcbConnection(url);
+    public Map<String, List<Currency>> getCurrencies() {
         try {
             JAXBContext jc = JAXBContext.newInstance(EcbEnvelope.class);
             Unmarshaller u = null;

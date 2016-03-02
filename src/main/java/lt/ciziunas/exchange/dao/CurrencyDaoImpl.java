@@ -3,7 +3,8 @@ package lt.ciziunas.exchange.dao;
 import lt.ciziunas.exchange.db.Database;
 import lt.ciziunas.exchange.entities.Currency;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,27 +15,22 @@ public class CurrencyDaoImpl implements CurrencyDao {
     private Database db = Database.getInstance();
 
     @Override
-    public boolean add(Set<Currency> currencyList) {
-        return db.add(currencyList);
+    public void add(String name, Currency currency) {
+        db.add(name, currency);
     }
 
     @Override
-    public boolean add(Currency currency) {
-        return db.add(currency);
+    public void add(Map<String, List<Currency>> entities) {
+        db.add(entities);
     }
 
     @Override
-    public Set<Currency> findAll() {
-        return db.findAll();
+    public List<Currency> findHistoryRates(String currencyName) {
+        return db.findHistoryRates(currencyName);
     }
 
     @Override
-    public Currency find(String name, LocalDate date) {
-        return db.find(name, date);
-    }
-
-    @Override
-    public Currency findPresent(String name) {
-        return db.findPresent(name);
+    public Set<String> findAllCurrencies() {
+        return db.findAllCurrencies();
     }
 }

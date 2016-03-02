@@ -2,7 +2,8 @@ package lt.ciziunas.exchange.dao;
 
 import lt.ciziunas.exchange.entities.Currency;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,13 +11,11 @@ import java.util.Set;
  */
 public interface CurrencyDao {
 
-    public boolean add(Set<Currency> currencyList);
+    public void add(String name, Currency currency);
 
-    public boolean add(Currency currency);
+    public void add(Map<String, List<Currency>> entities);
 
-    public Set<Currency> findAll();
+    public List<Currency> findHistoryRates(String currencyName);
 
-    public Currency find(String name, LocalDate date);
-
-    public Currency findPresent(String name);
+    public Set<String> findAllCurrencies();
 }

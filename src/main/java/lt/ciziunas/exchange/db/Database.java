@@ -2,11 +2,7 @@ package lt.ciziunas.exchange.db;
 
 import lt.ciziunas.exchange.entities.Currency;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Database representation
@@ -15,39 +11,36 @@ public class Database {
 
     private static Database instance = new Database();
 
-    private Set<Currency> currencySet = new HashSet<>();
+    private Map<String, List<Currency>> currencies = new HashMap<>();
 
-    private Database() {
-    }
+    private Database() {}
 
     public static Database getInstance() {
         return instance;
     }
 
-    public boolean add(Set<Currency> currencyList) {
-        return this.currencySet.addAll(currencyList);
+    public void add(String name, Currency currency) {
+        name = name.toUpperCase();
+        List<Currency> result = currencies.get(name);
+        if (result != null) {
+            result.add(currency);
+        } else {
+            List<Currency> list = new ArrayList<>();
+            list.add(currency);
+            currencies.put(name, list);
+        }
     }
 
-    public boolean add(Currency currency) {
-        return this.currencySet.add(currency);
+    public void add(Map<String, List<Currency>> entities) {
+        currencies.putAll(entities);
     }
 
-    public Set<Currency> findAll() {
-        return this.currencySet;
+    public List<Currency> findHistoryRates(String currencyName) {
+        return currencies.get(currencyName) == null ? new ArrayList<>() :  currencies.get(currencyName);
     }
 
-    public Set<Currency> findHistory(String name) {
-        return this.currencySet.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toSet());
+    public Set<String> findAllCurrencies() {
+        return currencies.keySet();
     }
-
-    public Currency find(String name, LocalDate date) {
-        Optional<Currency> result = this.currencySet.stream().filter(p -> p.getName().equals(name) && p.getDate().equals(date)).findFirst();
-        return result.isPresent() ? result.get() : null;
-    }
-
-    public Currency findPresent(String name) {
-        return find(name, LocalDate.now());
-    }
-
 
 }

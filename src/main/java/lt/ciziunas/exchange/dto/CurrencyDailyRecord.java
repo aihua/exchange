@@ -41,7 +41,7 @@ import java.util.List;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "currencyItems", "time"
+        "currencyItems", "date"
     })
 public class CurrencyDailyRecord {
 

@@ -1,13 +1,16 @@
 package lt.ciziunas.exchange.controllers;
 
+import lt.ciziunas.exchange.dao.CurrencyDao;
+import lt.ciziunas.exchange.dao.CurrencyDaoImpl;
 import lt.ciziunas.exchange.entities.Currency;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mciziunas on 2/29/16.
@@ -15,20 +18,22 @@ import java.util.List;
 @RestController
 public class CurrencyExchangeController {
 
+    private CurrencyDao currencyDao = new CurrencyDaoImpl();
+
     @RequestMapping("/exchange")
     public String index() {
         return "exchange";
     }
 
-    @RequestMapping(value = "/exchange/currencies", method = RequestMethod.GET)
-    public List<Currency> getCurrencyList() {
-        System.out.println("inside controller");
-        Currency c = new Currency("usd", 1.5f, LocalDate.now());
-        Currency c2 = new Currency("gbp", 1.8f, LocalDate.now());
-        List<Currency> list = new ArrayList<>();
-        list.add(c);
-        list.add(c2);
-        return list;
+    @RequestMapping(value = "/exchange/currencies", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    public Set<String> getCurrencyList() {
+        return currencyDao.findAllCurrencies();
+    }
 
+    @RequestMapping(value = "/exchange/rate-history", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Currency> getCurrencyList(@RequestParam String currency) {
+        System.out.println("inside controller " + currency);
+        System.out.println(currencyDao.findHistoryRates(currency));
+        return currencyDao.findHistoryRates(currency);
     }
 }
