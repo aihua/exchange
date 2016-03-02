@@ -4,8 +4,7 @@ currencyExchengeApp.service(
         // API
         return ({
             getCurrencyList: getCurrencyList,
-            getHistoryRates: getHistoryRates,
-            removeFriend: removeFriend
+            getHistoryRates: getHistoryRates
         });
 
         // PUBLIC METHODS.
@@ -21,9 +20,10 @@ currencyExchengeApp.service(
 
         // Get history rates by currency name
         function getHistoryRates(name) {
+            console.log(name);
             var request = $http({
                 method: "get",
-                url: "exchange/getHistory",
+                url: "/exchange/rate-history",
                 params: {
                     action: "get",
                     currency : name

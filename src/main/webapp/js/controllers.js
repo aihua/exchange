@@ -3,7 +3,7 @@ currencyExchengeApp.controller('ExchangeController', function($scope, currencySe
     //    $scope.result = CalcService.square($scope.number);
     //}
     $scope.init = function() {
-        $scope.currencies = $scope.getList();
+        $scope.getList();
     };
 
     $scope.getList = function() {
@@ -16,9 +16,9 @@ currencyExchengeApp.controller('ExchangeController', function($scope, currencySe
     };
 
     $scope.valueChanged = function() {
-        currencyService.getHistoryRates($scope.selected)
+        currencyService.getHistoryRates($scope.selectedCurrency)
             .then(
-                loadData(),
+                loadHistory,
                 function( errorMessage ) {
                     alert( errorMessage );
                 }
@@ -30,6 +30,7 @@ currencyExchengeApp.controller('ExchangeController', function($scope, currencySe
     };
 
     function loadHistory( historyList ) {
+        console.log(historyList);
         $scope.historyList = historyList;
     };
 });

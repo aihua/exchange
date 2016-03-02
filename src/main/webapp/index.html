@@ -9,21 +9,38 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
 
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+
+        form {
+            padding: 20px 0;
+        }
+
+    </style>
+
 </head>
 <body>
-<h1>Welcome to currency exchange app</h1>
+<h1>Welcome to currency ratio history app</h1>
 <div ng-controller="ExchangeController" data-ng-init="init()">
     <form name="currenciesForm">
-        <label for="CurrencySelect"> Repeat select: </label>
-        <select name="CurrencySelect" id="CurrencySelect" ng-model="data.selected" ng-change="valueChanged()">
-            <option ng-repeat="option in currencies" value="{{option.name}}">{{option.name}}</option>
+        <label for="CurrencySelect"> Select currency: </label>
+        <select name="CurrencySelect" id="CurrencySelect" ng-model="selectedCurrency" ng-change="valueChanged()">
+            <option ng-repeat="option in currencies" value="{{option}}">{{option}}</option>
         </select>
     </form>
-
-<ul>
-    <li ng-repeat="record in historyList">{{record.name}} {{record.rate}}</li>
-
-</ul>
+    <table>
+        <tr ng-repeat="record in historyList">
+            <td ng-if="$odd" style="background-color:#f1f1f1">
+                {{record.date.year}}-{{record.date.monthValue}}-{{record.date.dayOfMonth}}
+            </td>
+            <td ng-if="$even">{{record.date.year}}-{{record.date.monthValue}}-{{record.date.dayOfMonth}}</td>
+            <td ng-if="$odd" style="background-color:#f1f1f1"> {{record.value}}</td>
+            <td ng-if="$even"> {{record.value}}</td>
+        </tr>
+    </table>
 </div>
 
 </body>
