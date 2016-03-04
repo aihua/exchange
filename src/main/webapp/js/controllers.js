@@ -1,7 +1,5 @@
 currencyExchengeApp.controller('ExchangeController', function($scope, currencyService) {
-    //$scope.square = function() {
-    //    $scope.result = CalcService.square($scope.number);
-    //}
+
     $scope.init = function() {
         $scope.getList();
     };

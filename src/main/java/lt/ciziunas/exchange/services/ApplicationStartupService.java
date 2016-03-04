@@ -20,7 +20,7 @@ public class ApplicationStartupService
     @Autowired
     private CurrencyExchangeClient currencyExchange;
     @Autowired
-    Environment env;
+    private Environment env;
 
     /*
      * This method is called during Spring's startup.
