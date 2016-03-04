@@ -1,8 +1,9 @@
-package lt.ciziunas.exchange;
+package lt.ciziunas.exchange.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -11,11 +12,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @org.springframework.context.annotation.Configuration
 @EnableScheduling
+@PropertySource("classpath:application.properties")
 public class Configuration {
 
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(Configuration.class, args);
-        
+        ApplicationContext ctx = SpringApplication.run( Configuration.class, args);
     }
 
 }

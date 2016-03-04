@@ -10,5 +10,5 @@ import java.util.Map;
  */
 public interface CurrencyExchangeClient {
 
-    public Map<String, List<Currency>> getCurrencies();
+    public Map<String, List<Currency>> getCurrencies(String url);
 }

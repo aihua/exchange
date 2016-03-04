@@ -34,12 +34,6 @@ public class DatabaseTest {
         populateData();
     }
 
-//    @Test
-//    public void testFindAll() {
-//        Set<Currency> result = testee.findAll();
-//        Assert.assertEquals(6, result.size());
-//    }
-
     @Test
     public void testFindHistory() {
         List<Currency> result = testee.findHistoryRates(CURRENCY_USD);
@@ -60,30 +54,6 @@ public class DatabaseTest {
         List<Currency> result = testee.findHistoryRates("");
         Assert.assertEquals(0, result.size());
     }
-
-//    @Test
-//    public void testFind() {
-//        Currency result = testee.find(CURRENCY_USD, LocalDate.now().minus(1, ChronoUnit.DAYS));
-//        Assert.assertEquals(CURRENCY_USD, result.getName());
-//    }
-
-//    @Test
-//    public void testFindNoResults() {
-//        Currency result = testee.find(CURRENCY_USD, LocalDate.now().minus(2, ChronoUnit.DAYS));
-//        Assert.assertNull(result);
-//    }
-
-//    @Test
-//    public void testFindNoCurrencyFound() {
-//        Currency result = testee.find("aaa", LocalDate.now().minus(2, ChronoUnit.DAYS));
-//        Assert.assertNull(result);
-//    }
-
-//    @Test
-//    public void testFindPresent() {
-//        Currency result = testee.findPresent(CURRENCY_NOK);
-//        Assert.assertEquals(CURRENCY_NOK, result.getName());
-//    }
 
     private void populateData() {
         testee.add(CURRENCY_USD, curUsdToday);

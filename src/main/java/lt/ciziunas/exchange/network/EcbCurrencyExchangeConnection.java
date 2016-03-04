@@ -2,6 +2,7 @@ package lt.ciziunas.exchange.network;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,7 @@ import java.security.InvalidParameterException;
 /**
  * Created by mciziunas on 3/2/16.
  */
+@Component
 public class EcbCurrencyExchangeConnection implements Connection {
 
     private static final String ECB_SERVICE_TIMEOUT = "ecb.service.timeout";
@@ -27,13 +29,11 @@ public class EcbCurrencyExchangeConnection implements Connection {
     @Autowired
     private Environment env;
 
-    public EcbCurrencyExchangeConnection(String uri) {
+    public EcbCurrencyExchangeConnection() {}
+
+
+    public void createConnection(String uri) {
         populateUrl(uri);
-//        populateProperties();
-    }
-
-
-    public void createConnection() {
         while (true) {
             try {
                 if (retryCounter == 0) {
@@ -60,7 +60,7 @@ public class EcbCurrencyExchangeConnection implements Connection {
 
     public InputStream getInputStream() {
         if (connection == null) {
-            createConnection();
+            createConnection(url.toString());
         }
         try {
             return connection.getInputStream();

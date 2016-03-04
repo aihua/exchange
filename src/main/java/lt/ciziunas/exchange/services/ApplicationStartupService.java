@@ -1,5 +1,9 @@
 package lt.ciziunas.exchange.services;
 
+import lt.ciziunas.exchange.network.Connection;
+import lt.ciziunas.exchange.network.CurrencyExchangeClient;
+import lt.ciziunas.exchange.tasks.PopulateDbTask;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -8,7 +12,11 @@ import org.springframework.stereotype.Component;
 public class ApplicationStartupService
         implements ApplicationListener<ContextRefreshedEvent> {
 
-    private EcbCurrencyExchangeService exchangeService = new EcbCurrencyExchangeService();
+    @Autowired
+    private Connection ecbServiceConnection;
+
+    @Autowired
+    private CurrencyExchangeClient currencyExchange;
 
     /*
      * This method is called during Spring's startup.
@@ -18,9 +26,8 @@ public class ApplicationStartupService
      */
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-
-        exchangeService.updateDatabase();
-
+        PopulateDbTask exchangeService = new PopulateDbTask(ecbServiceConnection, currencyExchange);
+        new Thread(exchangeService).start();
     }
 
 }

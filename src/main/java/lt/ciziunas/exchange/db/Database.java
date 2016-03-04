@@ -1,6 +1,7 @@
 package lt.ciziunas.exchange.db;
 
 import lt.ciziunas.exchange.entities.Currency;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -36,11 +37,14 @@ public class Database {
     }
 
     public List<Currency> findHistoryRates(String currencyName) {
+        if (!StringUtils.isEmpty(currencyName)) {
+            currencyName = currencyName.toUpperCase();
+        }
         return currencies.get(currencyName) == null ? new ArrayList<>() :  currencies.get(currencyName);
     }
 
     public Set<String> findAllCurrencies() {
-        return currencies.keySet();
+        return currencies.keySet().isEmpty() ? new HashSet<>() : currencies.keySet();
     }
 
 }

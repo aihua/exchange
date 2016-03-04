@@ -7,7 +7,7 @@ import java.io.InputStream;
  */
 public interface Connection {
 
-    public void createConnection();
+    public void createConnection(String uri);
     public InputStream getInputStream();
     public void closeConnection();
 }

@@ -20,11 +20,6 @@ public class CurrencyExchangeController {
 
     private CurrencyDao currencyDao = new CurrencyDaoImpl();
 
-    @RequestMapping("/exchange")
-    public String index() {
-        return "exchange";
-    }
-
     @RequestMapping(value = "/exchange/currencies", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public Set<String> getCurrencyList() {
         return currencyDao.findAllCurrencies();
@@ -32,8 +27,6 @@ public class CurrencyExchangeController {
 
     @RequestMapping(value = "/exchange/rate-history", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Currency> getCurrencyList(@RequestParam String currency) {
-        System.out.println("inside controller " + currency);
-        System.out.println(currencyDao.findHistoryRates(currency));
         return currencyDao.findHistoryRates(currency);
     }
 }
