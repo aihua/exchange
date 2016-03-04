@@ -1,8 +1,8 @@
 package lt.ciziunas.exchange.controllers;
 
 import lt.ciziunas.exchange.dao.CurrencyDao;
-import lt.ciziunas.exchange.dao.CurrencyDaoImpl;
 import lt.ciziunas.exchange.entities.Currency;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +18,8 @@ import java.util.Set;
 @RestController
 public class CurrencyExchangeController {
 
-    private CurrencyDao currencyDao = new CurrencyDaoImpl();
+    @Autowired
+    private CurrencyDao currencyDao;
 
     @RequestMapping(value = "/exchange/currencies", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public Set<String> getCurrencyList() {

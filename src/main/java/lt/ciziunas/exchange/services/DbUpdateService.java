@@ -1,7 +1,6 @@
 package lt.ciziunas.exchange.services;
 
 import lt.ciziunas.exchange.dao.CurrencyDao;
-import lt.ciziunas.exchange.dao.CurrencyDaoImpl;
 import lt.ciziunas.exchange.entities.Currency;
 import lt.ciziunas.exchange.network.CurrencyExchangeClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,8 @@ public class DbUpdateService {
 
     @Autowired
     private CurrencyExchangeClient currencyExchangeClient;
-    private CurrencyDao currencyDao = new CurrencyDaoImpl();
+    @Autowired
+    private CurrencyDao currencyDao;
 
     /**
      * Daily job at midnight in local server time
