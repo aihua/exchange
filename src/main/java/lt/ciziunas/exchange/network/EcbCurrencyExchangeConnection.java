@@ -1,7 +1,5 @@
 package lt.ciziunas.exchange.network;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -25,12 +23,6 @@ public class EcbCurrencyExchangeConnection implements Connection {
     private HttpURLConnection connection;
     private int maxRetryCounter = 10;
     private int retryCounter = maxRetryCounter;
-
-    @Autowired
-    private Environment env;
-
-    public EcbCurrencyExchangeConnection() {}
-
 
     public void createConnection(String uri) {
         populateUrl(uri);
@@ -86,14 +78,19 @@ public class EcbCurrencyExchangeConnection implements Connection {
         }
     }
 
-    private void populateProperties() {
-        Integer timeout = env.getProperty(ECB_SERVICE_TIMEOUT, Integer.class);
-        if (timeout != null) {
-            this.timeout = timeout;
-        }
-        Integer maxRetryCounter = env.getProperty(ECB_SERVICE_MAX_RETRY_COUNT, Integer.class);
-        if (maxRetryCounter != null) {
-            this.maxRetryCounter = maxRetryCounter;
-        }
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    public int getMaxRetryCounter() {
+        return maxRetryCounter;
+    }
+
+    public void setMaxRetryCounter(int maxRetryCounter) {
+        this.maxRetryCounter = maxRetryCounter;
     }
 }

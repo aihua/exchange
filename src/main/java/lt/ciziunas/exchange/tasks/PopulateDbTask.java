@@ -16,16 +16,17 @@ public class PopulateDbTask implements Runnable {
 
     private Connection ecbServiceConnection;
     private CurrencyExchangeClient currencyExchange;
+    private String url;
     private CurrencyDao currencyDao = new CurrencyDaoImpl();
 
-    public PopulateDbTask(Connection ecbServiceConnection, CurrencyExchangeClient currencyExchange) {
+    public PopulateDbTask(Connection ecbServiceConnection, String connectionUrl, CurrencyExchangeClient currencyExchange) {
         this.ecbServiceConnection = ecbServiceConnection;
         this.currencyExchange = currencyExchange;
+        this.url = connectionUrl;
     }
 
     public void updateDatabase() {
-        Map<String, List<Currency>> currencies =  currencyExchange.getCurrencies("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml");
-        System.out.println(currencies);
+        Map<String, List<Currency>> currencies =  currencyExchange.getCurrencies(url);
         currencyDao.add(currencies);
     }
 

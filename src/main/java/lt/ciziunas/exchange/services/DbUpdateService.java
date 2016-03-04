@@ -5,6 +5,7 @@ import lt.ciziunas.exchange.dao.CurrencyDaoImpl;
 import lt.ciziunas.exchange.entities.Currency;
 import lt.ciziunas.exchange.network.CurrencyExchangeClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +19,27 @@ import java.util.Map;
 @Component
 public class DbUpdateService {
 
+    private static final String ECB_SERVICE_DAILY_URL = "ecb.service.daily.url";
+
+    @Autowired
+    private Environment env;
+
     @Autowired
     private CurrencyExchangeClient currencyExchangeClient;
     private CurrencyDao currencyDao = new CurrencyDaoImpl();
 
-    @Scheduled(cron="15 5 * * * *")
+    /**
+     * Daily job at midnight in local server time
+     */
+    @Scheduled(cron="0 0 * * * *")
     public void dailyDbUpdate() {
         System.out.println("DB updating job started at " + LocalDateTime.now());
-        Map<String, List<Currency>> currencyList = currencyExchangeClient.getCurrencies("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
+        Map<String, List<Currency>> currencyList = currencyExchangeClient.getCurrencies(getServiceUrl());
         currencyDao.add(currencyList);
         System.out.println("DB updating job finished at " + LocalDateTime.now());
+    }
+
+    private String getServiceUrl() {
+        return env.getProperty(ECB_SERVICE_DAILY_URL);
     }
 }
